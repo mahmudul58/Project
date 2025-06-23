@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ExamSystem {
     private static final String URL = "jdbc:mysql://localhost:3306/myProject";
     private static final String USER = "root";
-    private static final String PASSWORD = "Maiza@2023";
+    private static final String PASSWORD = "your_password";
 
     public static void main(String[] args) {
         try {
