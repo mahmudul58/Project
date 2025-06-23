@@ -112,7 +112,7 @@ private static final String USER = "root";
 private static final String PASSWORD = "your_mysql_password";
 ```
 
-### 4. Compile and Run
+### 3. Compile and Run
 Make sure all `.java` files are in the same folder. Then use:
 ```bash
 javac *.java
