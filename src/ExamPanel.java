@@ -44,7 +44,7 @@ public class ExamPanel {
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
-                case 1 -> TakeExam(email);
+                case 1 -> TakeExam(email,StudentId);
                 case 2 -> myResult(StudentId);
                 case 3 -> Result();
                 case 4 -> {
@@ -87,7 +87,7 @@ public class ExamPanel {
         int marks = 0;
 
         for (int i = 1; i <= no; i++) {
-            System.out.print("Question " + i + ": ");
+            System.out.print("\nQuestion " + i + ": ");
             String qn = scanner.nextLine();
             System.out.print("Option A: ");
             String opt1 = scanner.nextLine();
@@ -205,7 +205,7 @@ public class ExamPanel {
     }
 
     // Take exam section
-    public void TakeExam(String email) {
+    public void TakeExam(String email,String studentId) {
         System.out.print("\nEnter Exam Code: ");
         String examId = scanner.nextLine();
         try {
@@ -215,6 +215,16 @@ public class ExamPanel {
 
             if (!examInfo.next()) {
                 System.out.println("Invalid Exam ID.");
+                return;
+            }
+
+            PreparedStatement find = connection.prepareStatement("SELECT name FROM results WHERE exam_id = ? AND studentID = ?");
+            find.setString(1, examId);
+            find.setString(2, studentId);
+            ResultSet findrs = find.executeQuery();
+
+            if (findrs.next()) {
+                System.out.println("You attended the exam before.");
                 return;
             }
 
@@ -232,7 +242,7 @@ public class ExamPanel {
             }
             int duration = examInfo.getInt("duration");
 
-            System.out.println("Course ID     : " + course_code + "               Duration: " + duration + "minute");
+            System.out.println("Course ID     : " + course_code + "               Duration: " +  duration + "minute");
 
             long endTime = System.currentTimeMillis() + duration * 60 * 1000;
 
@@ -246,7 +256,7 @@ public class ExamPanel {
             while (rs.next()) {
                 long remaining = (endTime - System.currentTimeMillis()) / 1000;
                 if (remaining <= 0) {
-                    System.out.println("⏰ Time's up!");
+                    System.out.println("Time's up!");
                     break;
                 }
                 System.out.println("\nTime left: " + remaining + " seconds");
@@ -257,6 +267,12 @@ public class ExamPanel {
                 System.out.println("D. " + rs.getString("opt4"));
                 System.out.print("Your answer: ");
                 String userAns = scanner.nextLine().toUpperCase();
+
+                remaining = (endTime - System.currentTimeMillis()) / 1000;
+                if (remaining <= 0) {
+                    System.out.println("Time's up!");
+                    break;
+                }
 
                 if (userAns.equals(rs.getString("ans"))) {
                     totalScore += rs.getInt("marks");
