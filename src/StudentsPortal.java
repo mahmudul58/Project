@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class StudentsPortal {
-    private final Connection connection; // connection -> interface
+    private final Connection connection;
     private final Scanner scanner;
 
     public StudentsPortal(Connection connection, Scanner scanner) {
