@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ExamSystem {
     private static final String URL = "jdbc:mysql://localhost:3306/myProject";
     private static final String USER = "root";
-    private static final String PASSWORD = "your_mysql_password";
+    private static final String PASSWORD = "mysql_password";
 
     public static void main(String[] args) {
         try {
@@ -23,10 +23,10 @@ public class ExamSystem {
             StudentsPortal studentsPortal = new StudentsPortal(connection, scanner);
             while (true) {
                 System.out.println("Welcome to our Exam System");
-                System.err.println("1. Teacher's Portal");
-                System.err.println("2. Student's Portal");
-                System.err.println("3. Exit");
-                System.err.print("Enter your choice: ");
+                System.out.println("1. Teacher's Portal");
+                System.out.println("2. Student's Portal");
+                System.out.println("3. Exit");
+                System.out.print("Enter your choice: ");
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1 -> teachersPortal.menue();
